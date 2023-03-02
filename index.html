@@ -33,15 +33,39 @@
                 <i class="fas fa-sliders-h"></i>
             </div>
             <div id="menu" class="flex_row">
+                <div data-tab="ratfinder" class="selected">
+                    RAT-FINDER
+                </div>
                 <div data-tab="building">
                     BUILDINGS
                 </div>
-                <div data-tab="research" class="selected">
+                <div data-tab="research">
                     RESEARCH
                 </div>
             </div>
         </div>
         <div id="tabs">
+
+            <div id="ratfinder_tab">
+                <div id="instructions">
+                    <h2>Instructions:</h2>
+                    <p> ==> This is tool can show you who unfinished mines<== </p>
+                    <p>First enter <strong>"Land ID"</strong> (not working on lands don't have owner), Enter data/time in <strong>"From"</strong> like this <strong>"2023-2-20"</strong>, and in <strong>"To"</strong> enter second data/time like this <strong>"2023-2-21"</strong>, then click on <strong>"Get Result"</strong>.</p>
+                    <p>Now just find your continent or you can search for text on your browser like this <strong>"continent":42</strong> then player have more decimals on <strong>"total"</strong> leave the mine unfinished.</p>
+                    <p>Example:</p>
+                    <a href="https://imgbb.com/"><img src="https://i.ibb.co/TqH7J4v/rat.png" alt="rat" border="0"></a>
+                </div>
+                <form onsubmit="return false;">
+                    <label for="landId"><strong>Land ID:</strong></label>
+                    <input type="text" id="landId" value="">
+                    <label for="from"><strong>From:</strong></label>
+                    <input type="text" id="from" value="">
+                    <label for="to"><strong>To:</strong></label>
+                    <input type="text" id="to" value="">
+                    <button onclick="getResult()">Get Result</button>
+                </form>
+                <div id="result"></div>
+            </div>
 
             <div id="building_tab">
                 <div id="building_container" class="container">
@@ -146,9 +170,11 @@
         </div>
 
     </div>
-    <div id="footer">
-        My Discord: AmoAlireza#1111
-    </div>
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; font-size: 16px; color: #ffffffdc;">
+        Made with 
+        <span style="color: #f51b03; margin: 0 5px;">&hearts;</span> 
+        by AmoAlireza
+      </div>
 </div>
 
 <div id="overlays">
@@ -274,5 +300,20 @@
     </div>
 
 </div>
+<script>
+    function getResult() {
+      var landId = document.getElementById("landId").value;
+      var from = document.getElementById("from").value;
+      var to = document.getElementById("to").value;
+      var apiUrl = "https://api-lok-live.leagueofkingdoms.com/api/stat/land/contribution?landId=" + landId + "&from=" + from + "&to=" + to;
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          var result = JSON.stringify(data, null, 2);
+          document.getElementById("result").innerText = result;
+        })
+        .catch(error => console.error(error));
+    }
+  </script>
 </body>
 </html>
