@@ -298,10 +298,3 @@ select {
     padding: 1em;
     color: #fcfcfc;
 }
-
-#footer > span {
-    background-image: url("/img/kainlogo_bear.svg");
-    background-size: 2em;
-    background-repeat: no-repeat;
-    padding-left: 2em;
-}
